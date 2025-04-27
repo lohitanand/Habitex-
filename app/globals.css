@@ -1,0 +1,455 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    /* Updated primary to purple */
+    --primary: 265 83.2% 45.3%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    /* Updated accent to lighter purple */
+    --accent: 270 70% 85%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 265 83.2% 45.3%;
+    --radius: 0.5rem;
+
+    /* Pixel theme colors - updated to purple theme */
+    --pixel-primary: 265 83% 45%;
+    --pixel-primary-light: 265 83% 60%;
+    --pixel-primary-foreground: 0 0% 100%;
+    --pixel-accent: 290 82% 76%;
+    --pixel-accent-foreground: 0 0% 100%;
+    --pixel-light: 270 40% 95%;
+    --pixel-dark: 270 47% 11%;
+    --pixel-border: 270 30% 80%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    /* Updated primary to purple */
+    --primary: 265 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 265 76.3% 48%;
+  }
+}
+
+@layer components {
+  .btn-pixel {
+    @apply bg-[hsl(var(--pixel-primary))] text-[hsl(var(--pixel-primary-foreground))] hover:bg-[hsl(var(--pixel-primary))/90] border-2 border-b-4 border-r-4 border-[hsl(var(--pixel-primary))/50] active:border-b-2 active:border-r-2 active:translate-y-[2px] active:translate-x-[2px] transition-all duration-100;
+  }
+
+  .btn-pixel-accent {
+    @apply bg-[hsl(var(--pixel-accent))] text-[hsl(var(--pixel-accent-foreground))] hover:bg-[hsl(var(--pixel-accent))/90] border-2 border-b-4 border-r-4 border-[hsl(var(--pixel-accent))/50] active:border-b-2 active:border-r-2 active:translate-y-[2px] active:translate-x-[2px] transition-all duration-100;
+  }
+
+  .pixel-card {
+    position: relative;
+    overflow: hidden;
+    @apply border-2 border-gray-200 rounded-lg overflow-hidden;
+  }
+
+  .loot-box {
+    @apply relative border-4 rounded-lg overflow-hidden transition-all duration-300;
+  }
+
+  .loot-box-common {
+    @apply border-gray-400 bg-gray-100;
+  }
+
+  .loot-box-rare {
+    @apply border-blue-400 bg-blue-50;
+  }
+
+  .loot-box-epic {
+    @apply border-purple-400 bg-purple-50;
+  }
+
+  .loot-box-legendary {
+    @apply border-orange-400 bg-orange-50;
+  }
+
+  .loot-box-shine {
+    @apply absolute inset-0 bg-gradient-to-br from-white/80 via-transparent to-transparent opacity-0 transition-opacity duration-500;
+  }
+
+  .loot-box:hover .loot-box-shine {
+    @apply opacity-100;
+  }
+
+  .inventory-item {
+    @apply border-2 rounded-lg p-3 hover:border-blue-300 transition-colors cursor-pointer;
+  }
+
+  .character-part {
+    @apply border-2 rounded-lg p-2 cursor-pointer transition-all;
+  }
+
+  .character-part-active {
+    @apply border-blue-500 bg-blue-50;
+  }
+}
+
+/* Animations */
+@keyframes glow {
+  0%,
+  100% {
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+@keyframes open-box {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Pixel text shadow animation */
+@keyframes pixel-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.pixel-shadow-text {
+  position: relative;
+  display: inline-block;
+}
+
+.pixel-shadow-text::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  color: #8b4513;
+  z-index: -1;
+}
+
+.loot-box-legendary {
+  animation: glow 2s infinite;
+}
+
+.loot-box-epic {
+  animation: float 3s ease-in-out infinite;
+}
+
+.loot-box-rare:hover {
+  animation: shake 0.5s;
+}
+
+.open-box-animation {
+  animation: open-box 0.5s forwards;
+}
+
+/* Dialog styles */
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+dialog {
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  max-width: 90vw;
+}
+
+@font-face {
+  font-family: "PixelFont";
+  src: url("/fonts/pixel.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.font-pixel {
+  font-family: "PixelFont", monospace;
+  letter-spacing: 0.5px;
+}
+
+.pixel-art {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+@keyframes pixel-fade-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.pixel-animation {
+  animation: pixel-fade-in 0.5s ease-out forwards;
+}
+
+.pixel-grid {
+  background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='16' height='16' fill='%23FFFFFF' fill-opacity='0.05'/%3E%3C/svg%3E");
+  background-size: 16px 16px;
+  width: 100%;
+  height: 100%;
+}
+
+.pixel-character {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  position: relative;
+  overflow: hidden;
+  background-color: #b388ff !important;
+}
+
+.pixel-character::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='16' height='16' fill='%23000000' fill-opacity='0.1'/%3E%3C/svg%3E");
+  background-size: 8px 8px;
+  opacity: 0.2;
+}
+
+.pixel-art-reward {
+  position: relative;
+  overflow: hidden;
+}
+
+.pixel-art-reward::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='16' height='16' fill='%23000000' fill-opacity='0.1'/%3E%3C/svg%3E");
+  background-size: 8px 8px;
+  opacity: 0.2;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
+}
+
+.box-glow-gray {
+  box-shadow: 0 0 15px rgba(160, 174, 192, 0.5);
+}
+
+.box-glow-blue {
+  box-shadow: 0 0 20px rgba(66, 153, 225, 0.6);
+}
+
+.box-glow-gold {
+  box-shadow: 0 0 25px rgba(236, 201, 75, 0.7);
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Add the pixel character animation */
+.pixel-character-face {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #e0d0ff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: float 3s ease-in-out infinite;
+}
+
+.pixel-character-face .eyes {
+  display: flex;
+  justify-content: space-between;
+  width: 60%;
+  margin-bottom: 20%;
+}
+
+.pixel-character-face .eye {
+  width: 20%;
+  height: 20%;
+  background-color: #000;
+}
+
+.pixel-character-face .mouth {
+  width: 60%;
+  height: 15%;
+  background-color: #000;
+}
+
+.pixel-art-character {
+  background-color: #b388ff !important;
+}
+
+/* Pixel art mountains */
+.pixel-mountains {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.pixel-mountains::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40%;
+  background: #0a2e59;
+  clip-path: polygon(
+    0% 80%,
+    5% 70%,
+    10% 85%,
+    15% 75%,
+    20% 90%,
+    25% 80%,
+    30% 70%,
+    35% 85%,
+    40% 75%,
+    45% 90%,
+    50% 80%,
+    55% 70%,
+    60% 85%,
+    65% 75%,
+    70% 90%,
+    75% 80%,
+    80% 70%,
+    85% 85%,
+    90% 75%,
+    95% 90%,
+    100% 80%,
+    100% 100%,
+    0% 100%
+  );
+}
+
+.pixel-mountains::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 30%;
+  background: #051f40;
+  clip-path: polygon(
+    0% 90%,
+    5% 80%,
+    10% 95%,
+    15% 85%,
+    20% 100%,
+    25% 90%,
+    30% 80%,
+    35% 95%,
+    40% 85%,
+    45% 100%,
+    50% 90%,
+    55% 80%,
+    60% 95%,
+    65% 85%,
+    70% 100%,
+    75% 90%,
+    80% 80%,
+    85% 95%,
+    90% 85%,
+    95% 100%,
+    100% 90%,
+    100% 100%,
+    0% 100%
+  );
+}
+
+/* Pixel character animation */
+@keyframes pixel-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.pixel-character-animate {
+  animation: pixel-bounce 2s ease-in-out infinite;
+}
